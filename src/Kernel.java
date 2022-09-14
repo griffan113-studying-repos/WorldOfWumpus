@@ -38,13 +38,13 @@ public class Kernel {
                 cave[++playerLine][playerColumn] |= player;
             }
         } else if (playerDirection == WEST) {
-            if (playerColumn + 1 > 3) System.out.println("Fim do tabuleiro");
+            if (playerColumn - 1 > 3) System.out.println("Fim do tabuleiro");
             else {
                 cave[playerLine][playerColumn] ^= player;
                 cave[playerLine][--playerColumn] |= player;
             }
         } else if (playerDirection == NORTH) {
-            if (playerColumn + 1 > 3) System.out.println("Fim do tabuleiro");
+            if (playerColumn - 1 > 3) System.out.println("Fim do tabuleiro");
             else {
                 cave[playerLine][playerColumn] ^= player;
                 cave[--playerLine][playerColumn] |= player;
