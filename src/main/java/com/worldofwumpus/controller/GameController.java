@@ -30,6 +30,8 @@ public class GameController {
         while (!(userInput = user.next()).equals("exit")) {
             switch (userInput) {
                 case "walk" -> board.movementPlayer();
+                case "left" -> player.turnL();
+                case "right" -> player.turnR();
             }
 
             board.printBoard();
