@@ -1,3 +1,5 @@
+package main.java.com.worldofwumpus;
+
 public class Kernel {
     int EAST = 0;
     int SOUTH = 1;
