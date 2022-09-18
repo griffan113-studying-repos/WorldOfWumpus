@@ -58,14 +58,14 @@ public class Board {
                 player.setLine(player.getLine() + 1);
             }
         } else if (player.getDirection() == MovementDirections.WEST.getValue()) {
-            if (player.getColumn() - 1 > 3) System.out.println("Fim do tabuleiro");
+            if (player.getColumn() - 1 < 0) System.out.println("Fim do tabuleiro");
             else {
                 map[player.getLine()][player.getColumn()] ^= player.getId();
                 map[player.getLine()][player.getColumn() - 1] |= player.getId();
                 player.setColumn(player.getColumn() - 1);
             }
         } else if (player.getDirection() == MovementDirections.NORTH.getValue()) {
-            if (player.getColumn() - 1 > 3) System.out.println("Fim do tabuleiro");
+            if (player.getLine() - 1 < 0) System.out.println("Fim do tabuleiro");
             else {
                 map[player.getLine()][player.getColumn()] ^= player.getId();
                 map[player.getLine() - 1][player.getColumn()] |= player.getId();
