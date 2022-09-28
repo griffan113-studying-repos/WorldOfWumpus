@@ -3,6 +3,7 @@ package main.java.com.worldofwumpus.model.board;
 import main.java.com.worldofwumpus.model.game.GameObject;
 import main.java.com.worldofwumpus.model.player.MovementDirections;
 import main.java.com.worldofwumpus.model.player.Player;
+import main.java.com.worldofwumpus.model.treasure.Treasure;
 import main.java.com.worldofwumpus.model.wumpus.Wumpus;
 
 import java.util.ArrayList;
@@ -12,15 +13,18 @@ public class Board {
     int[][] map;
     Player player;
     Wumpus wumpus;
+    Treasure treasure;
     ArrayList<GameObject> spawnedEntities;
 
-    public Board(Player player, Wumpus wumpus) {
+    public Board(Player player, Wumpus wumpus, Treasure treasure) {
         map = new int[4][4];
         this.player = player;
         this.wumpus = wumpus;
+        this.treasure = treasure;
         spawnedEntities = new ArrayList<>();
         spawn(player);
-        spawnWumpus();
+        randomlySpawn(wumpus);
+        randomlySpawn(treasure);
     }
 
     private void spawn(GameObject object) {
@@ -28,17 +32,19 @@ public class Board {
         spawnedEntities.add(object);
     }
 
-    private void spawnWumpus() {
+    private void randomlySpawn(GameObject entityToSpawn) {
         Random random = new Random();
         int randomMapLine = random.nextInt(map.length);
         int randomMapColumn = random.nextInt(map[0].length);
 
-        if (map[randomMapLine][randomMapColumn] == player.getId())
-            spawnWumpus(); // Try again until find a place without player
-        else {
-            wumpus.setLine(randomMapLine);
-            wumpus.setColumn(randomMapColumn);
-            spawn(wumpus);
+        for (GameObject entity : spawnedEntities) {
+            if (map[randomMapLine][randomMapColumn] != 0) randomlySpawn(entityToSpawn);
+            else {
+                entityToSpawn.setLine(randomMapLine);
+                entityToSpawn.setColumn(randomMapColumn);
+                spawn(entityToSpawn);
+            }
+            break;
         }
     }
 

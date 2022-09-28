@@ -2,6 +2,7 @@ package main.java.com.worldofwumpus.controller;
 
 import main.java.com.worldofwumpus.model.board.Board;
 import main.java.com.worldofwumpus.model.player.Player;
+import main.java.com.worldofwumpus.model.treasure.Treasure;
 import main.java.com.worldofwumpus.model.wumpus.Wumpus;
 
 import java.util.Scanner;
@@ -15,7 +16,8 @@ public class GameController {
     public GameController() {
         player = new Player();
         wumpus = new Wumpus();
-        board = new Board(player, wumpus);
+        Treasure treasure = new Treasure();
+        board = new Board(player, wumpus, treasure);
         isGameOver = false;
     }
 
