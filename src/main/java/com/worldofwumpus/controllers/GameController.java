@@ -1,9 +1,9 @@
-package main.java.com.worldofwumpus.controller;
+package main.java.com.worldofwumpus.controllers;
 
-import main.java.com.worldofwumpus.model.board.Board;
-import main.java.com.worldofwumpus.model.player.Player;
-import main.java.com.worldofwumpus.model.treasure.Treasure;
-import main.java.com.worldofwumpus.model.wumpus.Wumpus;
+import main.java.com.worldofwumpus.environments.Board;
+import main.java.com.worldofwumpus.entities.player.Player;
+import main.java.com.worldofwumpus.entities.treasure.Treasure;
+import main.java.com.worldofwumpus.entities.wumpus.Wumpus;
 
 import java.util.Scanner;
 

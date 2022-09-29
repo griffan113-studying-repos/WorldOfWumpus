@@ -1,6 +1,6 @@
 package main.java.com.worldofwumpus;
 
-import main.java.com.worldofwumpus.controller.GameController;
+import main.java.com.worldofwumpus.controllers.GameController;
 
 public class WorldOfWumpusApplication {
     public static void main(String[] args) {

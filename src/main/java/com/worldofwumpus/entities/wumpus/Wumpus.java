@@ -1,6 +1,6 @@
-package main.java.com.worldofwumpus.model.wumpus;
+package main.java.com.worldofwumpus.entities.wumpus;
 
-import main.java.com.worldofwumpus.model.game.GameObject;
+import main.java.com.worldofwumpus.models.GameObject;
 
 public class Wumpus extends GameObject {
     boolean isDead;

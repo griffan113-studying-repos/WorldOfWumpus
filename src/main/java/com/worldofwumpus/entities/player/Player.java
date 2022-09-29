@@ -1,6 +1,6 @@
-package main.java.com.worldofwumpus.model.player;
+package main.java.com.worldofwumpus.entities.player;
 
-import main.java.com.worldofwumpus.model.game.GameObject;
+import main.java.com.worldofwumpus.models.GameObject;
 
 public class Player extends GameObject {
     int direction;

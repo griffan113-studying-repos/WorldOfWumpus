@@ -1,4 +1,4 @@
-package main.java.com.worldofwumpus.model.game;
+package main.java.com.worldofwumpus.models;
 
 public abstract class GameObject {
     int id;

@@ -1,4 +1,4 @@
-package main.java.com.worldofwumpus.model.player;
+package main.java.com.worldofwumpus.entities.player;
 
 public enum MovementDirections {
     NORTH(3),

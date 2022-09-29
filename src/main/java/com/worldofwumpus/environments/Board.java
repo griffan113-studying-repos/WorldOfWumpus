@@ -1,10 +1,10 @@
-package main.java.com.worldofwumpus.model.board;
+package main.java.com.worldofwumpus.environments;
 
-import main.java.com.worldofwumpus.model.game.GameObject;
-import main.java.com.worldofwumpus.model.player.MovementDirections;
-import main.java.com.worldofwumpus.model.player.Player;
-import main.java.com.worldofwumpus.model.treasure.Treasure;
-import main.java.com.worldofwumpus.model.wumpus.Wumpus;
+import main.java.com.worldofwumpus.models.GameObject;
+import main.java.com.worldofwumpus.entities.player.MovementDirections;
+import main.java.com.worldofwumpus.entities.player.Player;
+import main.java.com.worldofwumpus.entities.treasure.Treasure;
+import main.java.com.worldofwumpus.entities.wumpus.Wumpus;
 
 import java.util.ArrayList;
 import java.util.Random;
