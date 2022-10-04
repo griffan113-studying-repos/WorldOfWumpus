@@ -21,7 +21,26 @@ public class GameController {
         isGameOver = false;
     }
 
-    public void startGame() {
+    public void init() {
+        printBanner();
+
+        Scanner prompt = new Scanner(System.in);
+
+        // next - pega o próximo comando do Buffer
+        String userPrompt = prompt.next();
+
+        if (userPrompt.equals("start")) startGame();
+    }
+
+    private void printBanner() {
+        System.out.println("⌈———————————————————👹 Welcome to World Of Wumpus 👹——————————⌉");
+        System.out.println("|———————————————————— Author: Eliel M. Gaspar —————————————————|");
+        System.out.println("|— Objective: Get the treasure and kill Wumpus (and not die) ——|");
+        System.out.println("|—————————————————————— Type 'start' to play ——————————————————|");
+        System.out.println("⌊———————————————————————————— Good Luck! ——————————————————————⌋");
+    }
+
+    private void startGame() {
         Scanner prompt = new Scanner(System.in);
 
         String userPrompt;
@@ -31,10 +50,11 @@ public class GameController {
         // next - pega o próximo comando do Buffer
         while (!(userPrompt = prompt.next()).equals("exit")) {
             switch (userPrompt) {
-                case "walk" -> board.movementPlayer();
                 case "left" -> player.turnL();
                 case "right" -> player.turnR();
+                case "walk" -> board.playerWalk();
                 case "shoot" -> board.playerShoot();
+                case "take" -> board.playerTakeTreasure();
             }
 
             board.printBoard();

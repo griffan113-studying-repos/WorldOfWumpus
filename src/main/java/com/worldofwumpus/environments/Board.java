@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
-    int[][] map;
+    final int[][] map;
     Player player;
     Wumpus wumpus;
     Treasure treasure;
@@ -24,13 +24,9 @@ public class Board {
         this.treasure = treasure;
         spawnedEntities = new ArrayList<>();
         spawn(player);
-        randomlySpawn(wumpus);
-        randomlySpawn(treasure);
-        makePits();
-    }
-
-    private void makePits() {
-        randomlySpawn(new Pit());
+        randomlySpawn(wumpus, true);
+        randomlySpawn(treasure, false);
+        randomlySpawn(new Pit(), true);
     }
 
     private void spawn(GameObject object) {
@@ -38,7 +34,7 @@ public class Board {
         spawnedEntities.add(object);
     }
 
-    private void randomlySpawn(GameObject entityToSpawn) {
+    private void randomlySpawn(GameObject entityToSpawn, boolean withGap) {
         Random random = new Random();
         int randomMapLine = random.nextInt(map.length);
         int randomMapColumn = random.nextInt(map[0].length);
@@ -47,11 +43,37 @@ public class Board {
         System.out.println(randomMapColumn);
 
         for (GameObject ignored : spawnedEntities) {
-            if (map[randomMapLine][randomMapColumn] != 0) randomlySpawn(entityToSpawn);
-            else {
-                entityToSpawn.setLine(randomMapLine);
-                entityToSpawn.setColumn(randomMapColumn);
-                spawn(entityToSpawn);
+            if (withGap) {
+                int calculateMapLinePlusOffset = randomMapLine + 1 > map.length - 1 ? randomMapLine : randomMapLine + 1;
+                int calculateMapLineMinusOffset = randomMapLine - 1 < 0 ? randomMapLine : randomMapLine - 1;
+
+                int calculateMapColumnPlusOffset = randomMapColumn + 1 > map[0].length - 1 ? randomMapColumn : randomMapColumn + 1;
+                int calculateMapColumnMinusOffset = randomMapColumn - 1 < 0 ? randomMapColumn : randomMapColumn - 1;
+
+                int[] lineOffsets = {calculateMapLinePlusOffset, calculateMapLineMinusOffset};
+                int[] columnOffsets = {calculateMapColumnPlusOffset, calculateMapColumnMinusOffset};
+
+                for (int lineOffset : lineOffsets) {
+                    for (int columnOffset : columnOffsets) {
+                        if (map[lineOffset][columnOffset] != 0) {
+                            randomlySpawn(entityToSpawn, true);
+                        }
+                        else {
+                            entityToSpawn.setLine(randomMapLine);
+                            entityToSpawn.setColumn(randomMapColumn);
+                            spawn(entityToSpawn);
+                        }
+                        break;
+                    }
+                    break;
+                }
+            } else {
+                if (map[randomMapLine][randomMapColumn] != 0) randomlySpawn(entityToSpawn, false);
+                else {
+                    entityToSpawn.setLine(randomMapLine);
+                    entityToSpawn.setColumn(randomMapColumn);
+                    spawn(entityToSpawn);
+                }
             }
             break;
         }
@@ -60,8 +82,37 @@ public class Board {
     private void killWumpus(int line, int column) {
         map[line][column] ^= wumpus.getId();
         spawnedEntities.remove(wumpus);
+        wumpus.setIsDead(true);
 
         System.out.println("🥳 You just killed Wumpus!");
+    }
+
+    private void takeTreasure() {
+        map[treasure.getLine()][treasure.getColumn()] ^= treasure.getId();
+        spawnedEntities.remove(treasure);
+        treasure.setAlreadyCaught(true);
+
+        System.out.println("🥳 You just took the treasure!");
+    }
+
+    public void playerTakeTreasure() {
+        if (player.getDirection() == MovementDirections.EAST.getValue()) {
+            if (player.getColumn() + 1 < map[player.getLine()].length && map[player.getLine()][player.getColumn() + 1] == treasure.getId()) {
+                takeTreasure();
+            }
+        } else if (player.getDirection() == MovementDirections.SOUTH.getValue()) {
+            if (player.getLine() + 1 < map.length && map[player.getLine() + 1][player.getColumn()] == treasure.getId()) {
+                takeTreasure();
+            }
+        } else if (player.getDirection() == MovementDirections.WEST.getValue()) {
+            if (player.getColumn() - 1 >= 0 && map[player.getLine()][player.getColumn() - 1] == treasure.getId()) {
+                takeTreasure();
+            }
+        } else if (player.getDirection() == MovementDirections.NORTH.getValue()) {
+            if (player.getLine() - 1 >= 0 && map[player.getLine() - 1][player.getColumn()] == treasure.getId()) {
+                takeTreasure();
+            }
+        }
     }
 
     public void playerShoot() {
@@ -101,7 +152,7 @@ public class Board {
         }
     }
 
-    public void movementPlayer() {
+    public void playerWalk() {
         if (player.getDirection() == MovementDirections.EAST.getValue()) {
             if (player.getColumn() + 1 > 3) System.out.println("Fim do tabuleiro");
             else {
