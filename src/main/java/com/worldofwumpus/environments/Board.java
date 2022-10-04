@@ -1,5 +1,6 @@
 package main.java.com.worldofwumpus.environments;
 
+import main.java.com.worldofwumpus.entities.pit.Pit;
 import main.java.com.worldofwumpus.models.GameObject;
 import main.java.com.worldofwumpus.entities.player.MovementDirections;
 import main.java.com.worldofwumpus.entities.player.Player;
@@ -25,6 +26,11 @@ public class Board {
         spawn(player);
         randomlySpawn(wumpus);
         randomlySpawn(treasure);
+        makePits();
+    }
+
+    private void makePits() {
+        randomlySpawn(new Pit());
     }
 
     private void spawn(GameObject object) {
@@ -37,7 +43,10 @@ public class Board {
         int randomMapLine = random.nextInt(map.length);
         int randomMapColumn = random.nextInt(map[0].length);
 
-        for (GameObject entity : spawnedEntities) {
+        System.out.println(randomMapLine);
+        System.out.println(randomMapColumn);
+
+        for (GameObject ignored : spawnedEntities) {
             if (map[randomMapLine][randomMapColumn] != 0) randomlySpawn(entityToSpawn);
             else {
                 entityToSpawn.setLine(randomMapLine);
@@ -45,6 +54,50 @@ public class Board {
                 spawn(entityToSpawn);
             }
             break;
+        }
+    }
+
+    private void killWumpus(int line, int column) {
+        map[line][column] ^= wumpus.getId();
+        spawnedEntities.remove(wumpus);
+
+        System.out.println("🥳 You just killed Wumpus!");
+    }
+
+    public void playerShoot() {
+        if (player.shoot()) {
+            if (player.getDirection() == MovementDirections.EAST.getValue()) {
+                for (int column = player.getColumn() + 1; column <= map[player.getLine()].length - 1; column++) {
+                    if (map[player.getLine()][column] == wumpus.getId()) {
+                        killWumpus(player.getLine(), column);
+                        break;
+                    }
+                }
+            } else if (player.getDirection() == MovementDirections.SOUTH.getValue()) {
+                for (int line = player.getLine() + 1; line <= map.length - 1; line++) {
+                    if (map[line][player.getColumn()] == wumpus.getId()) {
+                        killWumpus(line, player.getColumn());
+                        break;
+                    }
+
+                }
+            } else if (player.getDirection() == MovementDirections.WEST.getValue()) {
+                for (int column = player.getColumn() - 1; column <= map[player.getLine()].length - 1; column--) {
+                    if (map[player.getLine()][column] == wumpus.getId()) {
+                        killWumpus(player.getLine(), column);
+
+                        break;
+                    }
+                }
+            } else if (player.getDirection() == MovementDirections.NORTH.getValue()) {
+                for (int line = player.getLine() - 1; line <= map.length - 1; line--) {
+                    if (map[line][player.getColumn()] == wumpus.getId()) {
+                        killWumpus(line, player.getColumn());
+
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -81,7 +134,10 @@ public class Board {
     }
 
     public void printBoard() {
-        System.out.println();
+        System.out.println("—————————————————————");
+        System.out.println("🏹 Arrows: " + player.getArrows());
+        System.out.println("🚶 Direction: " + player.printDirection());
+        System.out.println("—————————————————————");
         for (int line = 0; line < map.length; line++) {
             for (int column = 0; column < map[line].length; column++) {
                 int finalLine = line;
@@ -90,7 +146,8 @@ public class Board {
                 if (map[finalLine][finalColumn] == 0) System.out.print("⁕  ");
 
                 spawnedEntities.forEach(entity -> {
-                    if (map[finalLine][finalColumn] == entity.getId()) System.out.print(entity.getSymbol() + " ");
+                    if (map[finalLine][finalColumn] == entity.getId() && entity.isVisible())
+                        System.out.print(entity.getSymbol() + " ");
                 });
             }
 

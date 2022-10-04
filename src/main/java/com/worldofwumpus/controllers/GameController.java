@@ -22,18 +22,19 @@ public class GameController {
     }
 
     public void startGame() {
-        Scanner user = new Scanner(System.in);
+        Scanner prompt = new Scanner(System.in);
 
-        String userInput;
+        String userPrompt;
 
         board.printBoard();
 
         // next - pega o próximo comando do Buffer
-        while (!(userInput = user.next()).equals("exit")) {
-            switch (userInput) {
+        while (!(userPrompt = prompt.next()).equals("exit")) {
+            switch (userPrompt) {
                 case "walk" -> board.movementPlayer();
                 case "left" -> player.turnL();
                 case "right" -> player.turnR();
+                case "shoot" -> board.playerShoot();
             }
 
             board.printBoard();

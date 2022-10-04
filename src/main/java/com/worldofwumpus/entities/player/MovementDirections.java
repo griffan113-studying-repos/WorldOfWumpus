@@ -6,7 +6,7 @@ public enum MovementDirections {
     EAST(0),
     WEST(2);
 
-    private int value;
+    private final int value;
 
     MovementDirections(int value) {
         this.value = value;

@@ -6,9 +6,12 @@ public abstract class GameObject {
     int column;
     String symbol;
 
+    boolean isVisible;
+
     public GameObject(int id, String symbol) {
         this.id = id;
         this.symbol = symbol;
+        isVisible = true;
     }
 
     public GameObject(int id, int line, int column, String symbol) {
@@ -16,6 +19,7 @@ public abstract class GameObject {
         this.column = column;
         this.id = id;
         this.symbol = symbol;
+        isVisible = true;
     }
 
     public void setLine(int line) {
@@ -40,5 +44,13 @@ public abstract class GameObject {
 
     public String getSymbol() {
         return symbol;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(boolean visible) {
+        isVisible = visible;
     }
 }
