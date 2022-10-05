@@ -52,7 +52,7 @@ public class GameController {
             switch (userPrompt) {
                 case "left" -> player.turnL();
                 case "right" -> player.turnR();
-                case "walk" -> board.playerWalk();
+                case "walk" -> player.walk(board.getMap());
                 case "shoot" -> board.playerShoot();
                 case "take" -> board.playerTakeTreasure();
             }

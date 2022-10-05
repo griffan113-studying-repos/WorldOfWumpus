@@ -57,8 +57,7 @@ public class Board {
                     for (int columnOffset : columnOffsets) {
                         if (map[lineOffset][columnOffset] != 0) {
                             randomlySpawn(entityToSpawn, true);
-                        }
-                        else {
+                        } else {
                             entityToSpawn.setLine(randomMapLine);
                             entityToSpawn.setColumn(randomMapColumn);
                             spawn(entityToSpawn);
@@ -152,36 +151,8 @@ public class Board {
         }
     }
 
-    public void playerWalk() {
-        if (player.getDirection() == MovementDirections.EAST.getValue()) {
-            if (player.getColumn() + 1 > 3) System.out.println("Fim do tabuleiro");
-            else {
-                map[player.getLine()][player.getColumn()] ^= player.getId();
-                map[player.getLine()][player.getColumn() + 1] |= player.getId();
-                player.setColumn(player.getColumn() + 1);
-            }
-        } else if (player.getDirection() == MovementDirections.SOUTH.getValue()) {
-            if (player.getLine() + 1 > 3) System.out.println("Fim do tabuleiro");
-            else {
-                map[player.getLine()][player.getColumn()] ^= player.getId();
-                map[player.getLine() + 1][player.getColumn()] |= player.getId();
-                player.setLine(player.getLine() + 1);
-            }
-        } else if (player.getDirection() == MovementDirections.WEST.getValue()) {
-            if (player.getColumn() - 1 < 0) System.out.println("Fim do tabuleiro");
-            else {
-                map[player.getLine()][player.getColumn()] ^= player.getId();
-                map[player.getLine()][player.getColumn() - 1] |= player.getId();
-                player.setColumn(player.getColumn() - 1);
-            }
-        } else if (player.getDirection() == MovementDirections.NORTH.getValue()) {
-            if (player.getLine() - 1 < 0) System.out.println("Fim do tabuleiro");
-            else {
-                map[player.getLine()][player.getColumn()] ^= player.getId();
-                map[player.getLine() - 1][player.getColumn()] |= player.getId();
-                player.setLine(player.getLine() - 1);
-            }
-        }
+    public int[][] getMap() {
+        return map;
     }
 
     public void printBoard() {

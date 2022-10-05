@@ -52,4 +52,36 @@ public class Player extends GameObject {
 
         return true;
     }
+
+    public void walk(int[][] map) {
+        if (direction == MovementDirections.EAST.getValue()) {
+            if (getColumn() + 1 > 3) System.out.println("Fim do tabuleiro");
+            else {
+                map[getLine()][getColumn()] ^= getId();
+                map[getLine()][getColumn() + 1] |= getId();
+                setColumn(getColumn() + 1);
+            }
+        } else if (direction == MovementDirections.SOUTH.getValue()) {
+            if (getLine() + 1 > 3) System.out.println("Fim do tabuleiro");
+            else {
+                map[getLine()][getColumn()] ^= getId();
+                map[getLine() + 1][getColumn()] |= getId();
+                setLine(getLine() + 1);
+            }
+        } else if (direction == MovementDirections.WEST.getValue()) {
+            if (getColumn() - 1 < 0) System.out.println("Fim do tabuleiro");
+            else {
+                map[getLine()][getColumn()] ^= getId();
+                map[getLine()][getColumn() - 1] |= getId();
+                setColumn(getColumn() - 1);
+            }
+        } else if (direction == MovementDirections.NORTH.getValue()) {
+            if (getLine() - 1 < 0) System.out.println("Fim do tabuleiro");
+            else {
+                map[getLine()][getColumn()] ^= getId();
+                map[getLine() - 1][getColumn()] |= getId();
+                setLine(getLine() - 1);
+            }
+        }
+    }
 }
