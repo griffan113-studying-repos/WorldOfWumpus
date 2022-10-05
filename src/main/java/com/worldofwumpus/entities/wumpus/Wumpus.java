@@ -1,8 +1,8 @@
 package main.java.com.worldofwumpus.entities.wumpus;
 
-import main.java.com.worldofwumpus.models.GameObject;
+import main.java.com.worldofwumpus.models.GameEntity;
 
-public class Wumpus extends GameObject {
+public class Wumpus extends GameEntity {
     boolean isDead;
 
     public Wumpus() {

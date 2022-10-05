@@ -1,6 +1,6 @@
-package main.java.com.worldofwumpus.entities.player;
+package main.java.com.worldofwumpus.entities.hero;
 
-public enum MovementDirections {
+public enum Directions {
     NORTH(3),
     SOUTH(1),
     EAST(0),
@@ -8,7 +8,7 @@ public enum MovementDirections {
 
     private final int value;
 
-    MovementDirections(int value) {
+    Directions(int value) {
         this.value = value;
     }
 

@@ -1,23 +1,23 @@
 package main.java.com.worldofwumpus.models;
 
-public abstract class GameObject {
-    int id;
+public abstract class GameEntity {
+    int number;
     int line;
     int column;
     String symbol;
 
     boolean isVisible;
 
-    public GameObject(int id, String symbol) {
-        this.id = id;
+    public GameEntity(int number, String symbol) {
+        this.number = number;
         this.symbol = symbol;
         isVisible = true;
     }
 
-    public GameObject(int id, int line, int column, String symbol) {
+    public GameEntity(int number, int line, int column, String symbol) {
         this.line = line;
         this.column = column;
-        this.id = id;
+        this.number = number;
         this.symbol = symbol;
         isVisible = true;
     }
@@ -30,8 +30,8 @@ public abstract class GameObject {
         this.column = column;
     }
 
-    public int getId() {
-        return id;
+    public int getNumber() {
+        return number;
     }
 
     public int getLine() {

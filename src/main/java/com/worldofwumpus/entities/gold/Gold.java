@@ -1,10 +1,10 @@
-package main.java.com.worldofwumpus.entities.treasure;
+package main.java.com.worldofwumpus.entities.gold;
 
-import main.java.com.worldofwumpus.models.GameObject;
+import main.java.com.worldofwumpus.models.GameEntity;
 
-public class Treasure extends GameObject {
+public class Gold extends GameEntity {
     boolean alreadyCaught;
-    public Treasure() {
+    public Gold() {
         super(1 << 2, "💰");
 
         alreadyCaught = false;

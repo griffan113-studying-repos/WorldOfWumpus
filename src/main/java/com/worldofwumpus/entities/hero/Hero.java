@@ -1,15 +1,15 @@
-package main.java.com.worldofwumpus.entities.player;
+package main.java.com.worldofwumpus.entities.hero;
 
-import main.java.com.worldofwumpus.models.GameObject;
+import main.java.com.worldofwumpus.models.GameEntity;
 
-public class Player extends GameObject {
+public class Hero extends GameEntity {
     int direction;
     int arrows;
 
-    public Player() {
+    public Hero() {
         super(1 << 1, 3, 0, "🤠");
 
-        direction = MovementDirections.EAST.getValue();
+        direction = Directions.EAST.getValue();
         arrows = 5;
     }
 
@@ -27,9 +27,9 @@ public class Player extends GameObject {
     }
 
     public String printDirection() {
-        if (direction == MovementDirections.EAST.getValue()) return "➡️ East";
-        else if (direction == MovementDirections.WEST.getValue()) return "⬅ West";
-        else if (direction == MovementDirections.NORTH.getValue()) return "⬆️ North";
+        if (direction == Directions.EAST.getValue()) return "➡️ East";
+        else if (direction == Directions.WEST.getValue()) return "⬅ West";
+        else if (direction == Directions.NORTH.getValue()) return "⬆️ North";
         else return "⬇ South";
     }
 
@@ -54,32 +54,32 @@ public class Player extends GameObject {
     }
 
     public void walk(int[][] map) {
-        if (direction == MovementDirections.EAST.getValue()) {
+        if (direction == Directions.EAST.getValue()) {
             if (getColumn() + 1 > 3) System.out.println("Fim do tabuleiro");
             else {
-                map[getLine()][getColumn()] ^= getId();
-                map[getLine()][getColumn() + 1] |= getId();
+                map[getLine()][getColumn()] ^= getNumber();
+                map[getLine()][getColumn() + 1] |= getNumber();
                 setColumn(getColumn() + 1);
             }
-        } else if (direction == MovementDirections.SOUTH.getValue()) {
+        } else if (direction == Directions.SOUTH.getValue()) {
             if (getLine() + 1 > 3) System.out.println("Fim do tabuleiro");
             else {
-                map[getLine()][getColumn()] ^= getId();
-                map[getLine() + 1][getColumn()] |= getId();
+                map[getLine()][getColumn()] ^= getNumber();
+                map[getLine() + 1][getColumn()] |= getNumber();
                 setLine(getLine() + 1);
             }
-        } else if (direction == MovementDirections.WEST.getValue()) {
+        } else if (direction == Directions.WEST.getValue()) {
             if (getColumn() - 1 < 0) System.out.println("Fim do tabuleiro");
             else {
-                map[getLine()][getColumn()] ^= getId();
-                map[getLine()][getColumn() - 1] |= getId();
+                map[getLine()][getColumn()] ^= getNumber();
+                map[getLine()][getColumn() - 1] |= getNumber();
                 setColumn(getColumn() - 1);
             }
-        } else if (direction == MovementDirections.NORTH.getValue()) {
+        } else if (direction == Directions.NORTH.getValue()) {
             if (getLine() - 1 < 0) System.out.println("Fim do tabuleiro");
             else {
-                map[getLine()][getColumn()] ^= getId();
-                map[getLine() - 1][getColumn()] |= getId();
+                map[getLine()][getColumn()] ^= getNumber();
+                map[getLine() - 1][getColumn()] |= getNumber();
                 setLine(getLine() - 1);
             }
         }
